@@ -22,7 +22,7 @@ class CPU:
 
     def __init__(self):
         """Construct a new CPU."""
-        self.ram = bytearray(255)
+        self.ram = bytearray(256)
         self.register = [0] * 8
         self.pc = 0
 
