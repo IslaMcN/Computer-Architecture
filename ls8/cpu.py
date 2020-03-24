@@ -2,12 +2,36 @@
 
 import sys
 
+LDI = 0b10000010
+PRN = 0b01000111
+HLT = 0b00000001
+MUL = 0b10100010
+PUSH = 0b01000101
+POP = 0b01000110
+CALL = 0b01010000
+RET = 0b00010001
+ADD = 0b10100000
+CMP = 0b10100111
+JMP = 0b01010100
+JEQ = 0b01010101
+JNE = 0b01010110
+PRA = 0b01001000
+
 class CPU:
     """Main CPU class."""
 
     def __init__(self):
         """Construct a new CPU."""
-        pass
+        self.ram = bytearray(255)
+        self.register = [0] * 8
+        self.pc = 0
+
+    def ram_read(self, x):
+        print(self.register[x])
+        return self.register[x]
+
+    def ram_write(self, x, y):
+        self.register[x] = y
 
     def load(self):
         """Load a program into memory."""
@@ -35,7 +59,7 @@ class CPU:
         """ALU operations."""
 
         if op == "ADD":
-            self.reg[reg_a] += self.reg[reg_b]
+            self.register[reg_a] += self.register[reg_b]
         #elif op == "SUB": etc
         else:
             raise Exception("Unsupported ALU operation")
@@ -56,10 +80,15 @@ class CPU:
         ), end='')
 
         for i in range(8):
-            print(" %02X" % self.reg[i], end='')
+            print(" %02X" % self.register[i], end='')
 
         print()
 
     def run(self):
         """Run the CPU."""
-        pass
+        while True:
+            IR = self.ram[self.pc]
+            if IR == HLT:
+                print(self.ram)
+                
+            
