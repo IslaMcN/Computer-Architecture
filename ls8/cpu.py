@@ -70,7 +70,12 @@ class CPU:
         self.pc += 2
         
     def interpret_POP(self):
-        pass
+        val = self.ram[self.register[self.sp]]
+        # Cpy the value from the address pointed to by the SP to the register
+        self.register[self.ram[self.pc + 1 ]] = val
+        self.register[self.sp] += 1
+        self.pc += 2
+        return val
 
     def interpret_CALL(self):
         val = self.pc + 2
