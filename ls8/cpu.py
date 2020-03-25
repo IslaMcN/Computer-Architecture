@@ -79,6 +79,9 @@ class CPU:
 
     def interpret_CALL(self):
         val = self.pc + 2
+        self.register[self.sp] -= 1
+        self.ram[self.register[self.sp]] = val
+        self.pc = self.register[self.pc + 1]
 
     def interpret_RET(self):
         pass
