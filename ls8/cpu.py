@@ -84,7 +84,8 @@ class CPU:
         self.pc = self.register[self.pc + 1]
 
     def interpret_RET(self):
-        pass
+        self.pc = self.ram[self.register[self.sp]]
+        self.register[self.sp] += 1
 
     def interpret_CMP(self):
         pass 
