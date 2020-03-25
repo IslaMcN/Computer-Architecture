@@ -25,6 +25,7 @@ class CPU:
         self.ram = bytearray(256)
         self.register = [0] * 8
         self.pc = 0
+        self.sp = 7
 
     def ram_read(self, x):
         print(self.register[x])
@@ -63,6 +64,10 @@ class CPU:
 
     def interpret_PUSH(self):
         val = self.register[self.ram[self.pc + 1]]
+        # Cpy the value in the given register to the address pointed to by SP
+        self.register[self.sp] -= 1
+        self.ram[self.register[self.sp]] = val
+        self.pc += 2
         
     def interpret_POP(self):
         pass
