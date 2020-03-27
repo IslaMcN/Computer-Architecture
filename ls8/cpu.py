@@ -139,8 +139,11 @@ class CPU:
             self.pc += 2
 
     def interpret_JNE(self):
-        if self.fl != 0b00000001:
-            self.pc = self.register[self.ram[self.pc + 1]]
+        # If E flag is clear jump to the address stored in register
+        address = self.register[self.op_a]
+
+        if self.fl & 0b00000001 == 0:
+            self.pc = address
         else:
             self.pc += 2
 
