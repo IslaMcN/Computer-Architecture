@@ -126,9 +126,11 @@ class CPU:
 
     def interpret_JMP(self):
         # Jump to the address stored in the register
-        self.pc = self.register[self.ram[self.pc + 1]]
+        address = self.register[self.op_a]
+        self.pc = address
     
     def interpret_JEQ(self):
+        # If equal flag is set true, jump to the address stored in the given register
         if self.fl == 0b00000001:
             self.pc = self.register[self.ram[self.pc + 1]]
         else:
