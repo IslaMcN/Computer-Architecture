@@ -162,6 +162,7 @@ class CPU:
 
     def interpret_LOAD(self):
         # Load value to register
+        self.register[self.op_a] = self.op_b
 
     def alu(self, op, reg_a, reg_b):
         """ALU operations."""
