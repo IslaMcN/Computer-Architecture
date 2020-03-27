@@ -67,6 +67,7 @@ class CPU:
         """Load a program into memory."""
         if len(sys.argv) != 2:
             print('Do not forget to say which file')
+            sys.exit(1)
         file = sys.argv[1]
         try:
             address = 0
@@ -74,12 +75,13 @@ class CPU:
             with open(file) as p:
                 # Read all lines
                 for line in p:
-                    comment_split = line.strip().split('#')
+                    comment_split = line.strip().split(';')
                     # Cast the numbers from strings to ints
                     value = comment_split[0].strip()
                     # Ignore blanks
-                    if value == " ":
+                    if value == "":
                         continue
+                    print(value)
                     self.ram[address] = int(value, 2)
                     address += 1
             print(self.ram)
