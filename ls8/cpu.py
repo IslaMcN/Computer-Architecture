@@ -82,6 +82,8 @@ class CPU:
         self.pc += 3
 
     def interpret_PUSH(self):
+        # Push the value in the refister to the top of the stack
+        # Decrement the pointer
         val = self.register[self.ram[self.pc + 1]]
         # Cpy the value in the given register to the address pointed to by SP
         self.register[self.sp] -= 1
