@@ -156,6 +156,9 @@ class CPU:
         self.ram_write(self.ram[self.pc + 1], self.ram[self.pc + 2])
         self.pc += 3
 
+    def interpret_HALT(self):
+        # Exit current program
+
     def alu(self, op, reg_a, reg_b):
         """ALU operations."""
 
