@@ -98,14 +98,16 @@ class CPU:
 
     def interpret_CALL(self):
         # Calls a subroutine at the address stored in the register
-
         # Address of the instruction
         val = self.pc + 2
         self.register[self.sp] -= 1
 
         # Pushing the address of the instruction onto the stack
         self.ram[self.register[self.sp]] = val
-        self.pc = self.register[self.pc + 1]
+
+        # PC is set to the address stored in the register
+        reg = self.op_a
+        self.pc = self.register[reg]
 
     def interpret_RET(self):
         self.pc = self.ram[self.register[self.sp]]
