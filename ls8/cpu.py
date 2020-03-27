@@ -197,6 +197,60 @@ class CPU:
         elif op == 'MUL':
             result = self.register[reg_a] * self.register[reg_b]
             self.register[reg_a] = result
+        elif op == ["SUB"]:
+            self.register[reg_a] -= self.register[reg_b]
+        elif op == ["CMP"]:
+            # Compare the values in two registers
+            val_a = self.register[self.op_a]
+            val_b = self.register[self.op_b]
+            if val_a == val_b:
+                self.fl == 0b000000001
+            elif val_a < val_b:
+                self.fl = 0b00000100
+            elif val_a > val_b:
+                self.fl = 0b00000010
+        elif op == ["AND"]:
+            # Bitwise and the values in register a and register b then store in register a
+            val_a = self.register[self.op_a]
+            val_b = self.register[self.op_b]
+
+            self.register[self.op_a] = val_a & val_b
+        elif op == ['OR']:
+            # Bitwise Or between the values in register a and register b storing in register a
+            val_a = self.register[self.op_a]
+            val_b = self.register[self.op_b]
+
+            self.register[self.op_a] = val_a | val_b
+        elif op == ['XOR']:
+            # Bitwise XOR between the values in register a and register b and store in register a
+            val_a = self.register[self.op_a]
+            val_b = self.register[self.op_b]
+
+            self.register[self.op_a] = val_a ^ val_b
+        elif op == ["NOT"]:
+            # A bitwise not on the value in a register
+            reg = self.op_a
+            value = self.register[reg]
+
+            self.register[reg] = ~value
+        elif op == ["SHL"]:
+            # Shift the value in register a left by the number of bits specified in register b filling the low bits with 0
+            val_a = self.register[self.op_a]
+            num_bits = self.register[self.op_b]
+
+            self.register[self.op_a] = (val_a << num_bits) % 255
+        elif op == ["SHR"]:
+            # Shift the value in register a right by the number of bits specified in register b filing in the high bits with 0
+            val_a = self.register[self.op_a]
+            num_bits = self.register[self.op_b]
+
+            self.register[self.op_a] = (val_a >> num_bits) % 255
+        elif op == ["MOD"]:
+            # Divide the value in first register by value in second storing the remaining in register a
+            val_a = self.register[self.op_a]
+            val_b = self.register[self.op_b]
+
+            self.reg[self.op_a] = val_a % val_b
         else:
             raise Exception("Unsupported ALU operation")
 
