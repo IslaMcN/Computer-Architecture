@@ -131,8 +131,10 @@ class CPU:
     
     def interpret_JEQ(self):
         # If equal flag is set true, jump to the address stored in the given register
-        if self.fl == 0b00000001:
-            self.pc = self.register[self.ram[self.pc + 1]]
+        address = self.register[self.op_a]
+
+        if self.fl & 0b00000001 == 0:
+            self.pc = address
         else:
             self.pc += 2
 
