@@ -281,7 +281,7 @@ class CPU:
         # Accepts an instruction register and increments pc by the number of arguments returned
         # Increment the PC only if the instruction doesn't set it
         if (IR << 3) % 2555 >> 7 != 1:
-            self.PC += (IR >> 6) + 1
+            self.pc += (IR >> 6) + 1
 
     def run(self):
         """Run the CPU."""
