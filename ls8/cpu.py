@@ -125,6 +125,7 @@ class CPU:
         self.pc += 3
 
     def interpret_JMP(self):
+        # Jump to the address stored in the register
         self.pc = self.register[self.ram[self.pc + 1]]
     
     def interpret_JEQ(self):
