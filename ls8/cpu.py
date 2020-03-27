@@ -158,6 +158,10 @@ class CPU:
 
     def interpret_HALT(self):
         # Exit current program
+        sys.exit()
+
+    def interpret_LOAD(self):
+        # Load value to register
 
     def alu(self, op, reg_a, reg_b):
         """ALU operations."""
