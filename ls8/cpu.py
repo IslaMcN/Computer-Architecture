@@ -44,18 +44,9 @@ class CPU:
         self.op_a = None
         self.op_b = None
         self.branchtable = {}
-        self.branchtable[LDI] = self.interpret_LDI
-        self.branchtable[PRN] = self.interpret_PRN
         self.branchtable[MUL] = self.interpret_MUL
         self.branchtable[ADD] = self.interpret_ADD
-        self.branchtable[PUSH] = self.interpret_PUSH
-        self.branchtable[POP] = self.interpret_POP
-        self.branchtable[CALL] = self.interpret_CALL
-        self.branchtable[RET] = self.interpret_RET
         self.branchtable[CMP] = self.interpret_CMP
-        self.branchtable[JMP] = self.interpret_JMP
-        self.branchtable[JEQ] = self.interpret_JEQ
-        self.branchtable[JNE] = self.interpret_JNE
         self.branchtable[PRA] = self.interpret_PRA
         self.MAR = None
         self.MDR = None
@@ -262,7 +253,7 @@ class CPU:
             val_a = self.register[self.op_a]
             val_b = self.register[self.op_b]
 
-            self.reg[self.op_a] = val_a % val_b
+            self.register[self.op_a] = val_a % val_b
         else:
             raise Exception("Unsupported ALU operation")
 
