@@ -2,19 +2,33 @@
 
 import sys
 
-LDI = 0b10000010
-PRN = 0b01000111
-HLT = 0b00000001
+bin_op = {
+    "LDI": 0b10000010,
+    "PRN": 0b01000111,
+    "HLT": 0b00000001,
+    "PUSH": 0b01000101,
+    "POP": 0b01000110,
+    "CALL": 0b01010000,
+    "RET": 0b00010001,
+    "JMP": 0b01010100,
+    "JEQ": 0b01010101,
+    "JNE": 0b01010110
+
+}
+
+
+
+
 MUL = 0b10100010
-PUSH = 0b01000101
-POP = 0b01000110
-CALL = 0b01010000
-RET = 0b00010001
+
+
+
+
 ADD = 0b10100000
 CMP = 0b10100111
-JMP = 0b01010100
-JEQ = 0b01010101
-JNE = 0b01010110
+
+
+
 PRA = 0b01001000
 
 class CPU:
@@ -283,10 +297,28 @@ class CPU:
     def run(self):
         """Run the CPU."""
         while True:
-            IR = self.ram[self.pc]
-            if IR == HLT:
-                print(self.ram)
-                exit(2)
-            self.branchtable[IR]()
+            # read the memory addresss that is stored in register pc
+            # store that in IR
+            # This is a local var
+            IR = self.ram_read(self.pc)
+            # Use ram_read to read the bytes at pc + 1 and pc + 2 from RAM into var
+            self.op_a = self.ram_read(self.pc + 1)
+            self.op_b = self.ram_read(self.pc + 2)
+
+            # Depending on val of the opcode, perform the actions needed
+            # if math bit is on, run math op
+            if (IR << 2) % 255 >> 7 ==1:
+                self.alu(IR, self.op_a, self.op_b)
+                self.move(IR)
+            # Else run basic op
+            elif (IR << 2) % 255 >> 7 == 0:
+                self.branchtable[bin_op[IR]]()
+                self.move(IR)
+            # If instruction is not recognized, exit
+            
+            else:
+                print('I do not understand')
+                print(self.trace())
+                sys.exit(1)
                 
             
