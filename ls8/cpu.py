@@ -93,16 +93,16 @@ class CPU:
         
     def interpret_POP(self):
         # Pop the value at the top of the stack into the register
-        val = self.ram[self.register[self.sp]]
+        
         # Cpy the value from the address pointed to by the SP to the register
         # Value at the address pointed to by pointer
+        val = self.ram[self.register[self.sp]]
         # Given register
+        reg = self.op_a
         # Copying the value from memory to register
+        self.register[reg] = val
         # Increment pointer
-        self.register[self.ram[self.pc + 1 ]] = val
         self.register[self.sp] += 1
-        self.pc += 2
-        return val
 
     def interpret_CALL(self):
         # Calls a subroutine at the address stored in the register
